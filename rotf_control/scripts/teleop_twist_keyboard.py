@@ -1,14 +1,10 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
-
 import threading
-
 import roslib; roslib.load_manifest('teleop_twist_keyboard')
 import rospy
-
 from geometry_msgs.msg import Twist
-
 import sys, select, termios, tty
 
 msg = """
@@ -77,7 +73,7 @@ speedBindings={
 class PublishThread(threading.Thread):
     def __init__(self, rate):
         super(PublishThread, self).__init__()
-        self.publisher = rospy.Publisher('cmd_vel', Twist, queue_size = 1)
+        self.publisher = rospy.Publisher('/cmd_vel', Twist, queue_size = 1)
         # rate = rospy.Rate(100.0) 
         self.x = 0.0
         self.y = 0.0

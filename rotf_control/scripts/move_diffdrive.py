@@ -6,12 +6,13 @@ from rospy.names import valid_name_validator_resolved
 from std_msgs.msg import Float64
 from math import *
 rospy.init_node('move_diffdrive') # defining the ros node - publish_node
-
-left_wheel_veloity=rospy.Publisher("/velocity_controller/left_wheel_controller/command",Float64,queue_size=1)
-right_wheel_velocity=rospy.Publisher("/velocity_controller/right_wheel_controller/command",Float64,queue_size=1)
-
-rate =rospy.Rate(2) # frequency at which publishing
+left_wheel_veloity=rospy.Publisher("/left_wheel_controller/command",Float64,queue_size=1)
+right_wheel_velocity=rospy.Publisher("/right_wheel_controller/command",Float64,queue_size=1)
+chasis_velocity=rospy.Publisher("/cmd_vel",Twist,queue_size=1)
+rate =rospy.Rate(100) # frequency at which publishing
 move=Twist()
+move.linear.x=1
+move.angular.z=0.0
 v_l=0
 v_r=0
 base_width=0.34
@@ -33,4 +34,5 @@ while not rospy.is_shutdown():
 	# print(v_l,"left wheel veloity")
 	left_wheel_veloity.publish(v_l)
 	right_wheel_velocity.publish(v_r)
+	chasis_velocity.publish(move)
 	rate.sleep()

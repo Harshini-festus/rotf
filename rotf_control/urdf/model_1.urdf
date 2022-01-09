@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <robot name="diff_bot">
+    <!-- <link name="base_footprint"/> -->
     <link name="base_link">
         <pose>0 0 0.1 0 0 0</pose>
         <inertial>
@@ -162,22 +163,19 @@
 	    </plugin>
   	</gazebo>
     
-    <!-- <gazebo>
-		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-		    <robotNamespace>/diff_bot</robotNamespace>
+  
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
             <legacyModeNS>true</legacyModeNS>
-            <commandTopic>cmd_vel</commandTopic>
-            <odometrySource>world</odometrySource>
-            <odometryFrame>odom</odometryFrame>
             <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <odometrySource>world</odometrySource>
             <publishOdomTF>true</publishOdomTF>
-            <publishWheelTF>true</publishWheelTF>
-            <publishTf>true</publishTf>
-            <updateRate>100.0</updateRate>
-            <alwaysOn>true</alwaysOn>
-		</plugin>
-	</gazebo>
+        </plugin>
+    </gazebo>
+
+  
     <gazebo>
         <plugin name="robot_groundtruth_sim" filename="libgazebo_ros_p3d.so">
             <alwaysOn>true</alwaysOn>
@@ -186,38 +184,7 @@
             <topicName>odom</topicName>
             <frameName>world</frameName>
         </plugin>
-    </gazebo> -->
-    <gazebo>
-        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-            <robotNamespace>${namespace}</robotNamespace>
-            <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-            <legacyModeNS>true</legacyModeNS>
-            <odometryTopic>${namespace}/odom</odometryTopic>
-            <odometryFrame>odom</odometryFrame>
-            <odometrySource>world</odometrySource>
-            <publishOdomTF>true</publishOdomTF>
-        </plugin>
     </gazebo>
-
-  <!-- Groundtruth plugin -->
-    <gazebo>
-        <plugin name="robot_groundtruth_sim" filename="libgazebo_ros_p3d.so">
-            <alwaysOn>true</alwaysOn>
-            <updateRate>100.0</updateRate>
-            <bodyName>base_link</bodyName>
-            <topicName>${namespace}/odom</topicName>
-            <frameName>world</frameName>
-        </plugin>
-    </gazebo>
-    <!-- <gazebo>
-		<plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
-			<commandTopic>cmd_vel</commandTopic>
-			<odometryTopic>odom</odometryTopic>
-			<odometryFrame>odom</odometryFrame>
-			<odometryRate>100.0</odometryRate>
-			<robotBaseFrame>base_link</robotBaseFrame>
-		</plugin>
-	</gazebo> -->
     <!-- <gazebo>
         <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller_front">
             <rosDebugLevel>Debug</rosDebugLevel>
