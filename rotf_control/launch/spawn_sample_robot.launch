@@ -21,9 +21,11 @@
   <arg name="z" default="0.100003"/> -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"  output="screen" args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -model sample_bot -param robot_description"/>
   <rosparam file="$(find rotf_control)/config/diff_drive.yaml" command="load"/>
-  <node name="controller_spawner"  pkg="controller_manager" type="spawner" respawn="false" output="screen"  args="mobile_base_controller"/>
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
-  <!-- <node pkg="rotf_control" type="move_diffdrive.py" name="move_diffdrive.py" output="screen" /> -->
+  <node name="controller_spawner"  pkg="controller_manager" type="spawner" respawn="false" output="screen"  args="left_wheel_controller
+    right_wheel_controller"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  <node pkg="rotf_control" type="move_diffdrive.py" name="move_diffdrive.py" output="screen" />
   <!-- <node pkg="rotf_control" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard.py" output="screen" /> -->
   <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" args="0 0 0 0 0 0 base_link laser 20" /> -->
   <!-- <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_base_link" args="0 0 0 0 0 0 base_footprint base_link 20" /> -->
