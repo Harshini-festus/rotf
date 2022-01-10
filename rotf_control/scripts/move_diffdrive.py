@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 import rospy
 from geometry_msgs.msg import Twist
 from rospy.names import valid_name_validator_resolved
@@ -11,7 +10,7 @@ right_wheel_velocity=rospy.Publisher("/right_wheel_controller/command",Float64,q
 chasis_velocity=rospy.Publisher("/cmd_vel",Twist,queue_size=1)
 rate =rospy.Rate(100) # frequency at which publishing
 move=Twist()
-move.linear.x=1
+move.linear.x=10.0
 move.angular.z=0.0
 v_l=0
 v_r=0
@@ -32,6 +31,8 @@ while not rospy.is_shutdown():
 	# print(w)
 	# print(v_r,"---right wheel velocity")
 	# print(v_l,"left wheel veloity")
+	v_l=10
+	v_r=10
 	left_wheel_veloity.publish(v_l)
 	right_wheel_velocity.publish(v_r)
 	chasis_velocity.publish(move)
