@@ -4,7 +4,7 @@
   <include file="$(find gazebo_ros)/launch/empty_world.launch"> 
     <arg name="world_name" default="empty_world"/>
     <arg name="paused" value="false"/>
-    <arg name="use_sim_time" value="false"/>
+    <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
     <arg name="recording" value="false"/>
     <arg name="debug" value="false"/>
@@ -22,7 +22,8 @@
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"  output="screen" args="-urdf -x $(arg x) -y $(arg y) -z $(arg z) -model sample_bot -param robot_description"/>
   <rosparam file="$(find rotf_control)/config/diff_drive.yaml" command="load"/>
   <node name="controller_spawner"  pkg="controller_manager" type="spawner" respawn="false" output="screen"  args="left_wheel_controller
-    right_wheel_controller"/>
+    right_wheel_controller
+    joint_state_controller"/>
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
   <node pkg="rotf_control" type="move_diffdrive.py" name="move_diffdrive.py" output="screen" />
