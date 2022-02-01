@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="physics" default="ode"/>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch"> 
+        <arg name="world_name" default="$(find rotf_control)/world/model.world"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="recording" value="false"/>
+        <arg name="physics" default="$(arg physics)"/>
+        <arg name="debug" value="false"/>
+    </include>	
+</launch>
