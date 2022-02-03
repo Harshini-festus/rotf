@@ -1,15 +1,17 @@
 <?xml version="1.0"?>
 <launch>
-    <!-- <remap from="diff_bot/laser/scan" to="scan"/> -->
-    <node pkg="rotf_control" type="laser_data_pub.py" name="laser_data_pub.py" output="screen" />
+    <!-- <arg name="scan_topic" value="diff_bot/laser/scan" /> -->
+    <!-- <node pkg="rotf_control" type="laser_data_pub.py" name="laser_data_pub.py" output="screen" /> -->
         <!--  ************** Global Parameters ***************  -->
     <param name="/use_sim_time" value="true"/>
-  	<node pkg="tf" type="static_transform_publisher" name="base_link_odom_broadcaster" args="0 0 0.1 0 0 0 map base_link 100"/>
+  	<!-- <node pkg="tf" type="static_transform_publisher" name="base_link_odom_broadcaster" args="0 0 0 0 0 0 map base_link 100"/> -->
 	
 
         <!--  ************** Navigation ***************  -->
 	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
 		<remap from="odom" to="base_link"/>
+    <!-- <remap from="diff_bot/laser/scan" to="diff_bot/laser/scan"/> -->
+
     <rosparam file="$(find rotf_control)/config/costmap_common.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find rotf_control)/config/costmap_common.yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find rotf_control)/config/local_costmap.yaml" command="load" />
@@ -26,25 +28,25 @@
 
 		<remap from="cmd_vel" to="cmd_vel"/>
 		<remap from="odom" to="base_link"/>
-		<remap from="scan" to="scan"/>
+		<remap from="scan" to="diff_bot/laser/scan"/>
 	</node>
 
 
 	<!--  ****** Maps *****  -->
-	<node name="map_server" pkg="map_server" type="map_server" args="$(find rotf_control)/maps/maze_map.yaml" output="screen">
+	<node name="map_server" pkg="map_server" type="map_server" args="$(find rotf_control)/maps/mymap.yaml" output="screen">
                 <param name="frame_id" value="map"/>
 	</node>
-
+  <arg name="scan_topic" default="diff_bot/laser/scan" />
 	<node pkg="amcl" type="amcl" name="amcl" output="screen">
-		<rosparam file="$(find teb_local_planner_tutorials)/cfg/amcl_params.yaml" command="load" />
-
-	    <param name="initial_pose_x"            value="0"/>
-		<param name="initial_pose_y"            value="0"/>
-		<param name="initial_pose_a"            value="0"/>
+		<rosparam file="$(find rotf_control)/config/amcl_params.yaml" command="load" />
+    <param name="initial_pose_x"            value="0"/>
+    <param name="initial_pose_y"            value="0"/>
+    <param name="initial_pose_a"            value="0"/>
+    <remap from="scan" to="diff_bot/laser/scan"/>
 	</node>
 
 	  <!--  **************** Visualisation ****************  -->
-	  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find teb_local_planner_tutorials)/cfg/rviz_navigation.rviz"/>
+	  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rotf_control)/config/rviz_navigation.rviz"/>
 
 </launch>
 

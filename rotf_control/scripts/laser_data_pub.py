@@ -15,7 +15,7 @@ def callback(msg):
     
 rate=rospy.Rate(100)
 while not rospy.is_shutdown():
-    scan_received=rospy.Subscriber("/diff_bot/laser/scan", callback)
+    scan_received=rospy.Subscriber("/diff_bot/laser/scan",LaserScan, callback)
     scan_sent=rospy.Publisher("/scan", LaserScan, queue_size=1)
-    scan_sent(scan)
+    scan_sent.publish(scan)
     rate.sleep()
