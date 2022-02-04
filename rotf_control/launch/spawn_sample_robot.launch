@@ -12,7 +12,7 @@
   <include file="$(find plywood_mazes)/launch/maze_3_6x6.launch" />
   <param name="robot_description" textfile="$(find rotf_control)/urdf/model_1.urdf"/>
   <!-- <param name="robot_description" textfile="$(find rotf_control)/urdf/ot_light.urdf"/> -->
-  <arg name="x" default="-0.0"/>
+  <arg name="x" default="0.0"/>
   <arg name="y" default="0.0"/>
   <arg name="z" default="0.0"/>
 
@@ -28,7 +28,6 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
   <node pkg="rotf_control" type="move_diffdrive.py" name="move_diffdrive.py" output="screen" />
   <!-- <node pkg="rotf_control" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard.py" output="screen" /> -->
-  <!-- <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" args="0 0 0 0 0 0 base_link laser 20" /> -->
   <!-- <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_base_link" args="0 0 0 0 0 0 base_footprint base_link 20" /> -->
   <!-- <node name="rviz" pkg="rviz" type="rviz" args=""/> -->
 </launch>

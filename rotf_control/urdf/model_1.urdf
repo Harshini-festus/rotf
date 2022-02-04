@@ -166,7 +166,7 @@
             <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
             <legacyModeNS>true</legacyModeNS>
             <odometryTopic>odom</odometryTopic>
-            <odometryFrame>odom</odometryFrame>
+            <odometryFrame>base_link</odometryFrame>
             <odometrySource>world</odometrySource>
             <publishOdomTF>true</publishOdomTF>
         </plugin>
@@ -178,7 +178,7 @@
             <updateRate>100.0</updateRate>
             <bodyName>base_link</bodyName>
             <topicName>odom</topicName>
-            <frameName>world</frameName>
+            <frameName>base_link</frameName>
         </plugin>
     </gazebo>
 
