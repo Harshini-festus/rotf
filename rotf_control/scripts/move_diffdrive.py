@@ -30,6 +30,6 @@ while not rospy.is_shutdown():
 	pub = rospy.Subscriber('/cmd_vel', Twist,callback)
 	v_r=x+base_width*w/2
 	v_l=x-base_width*w/2
-	left_wheel_veloity.publish(v_l)
-	right_wheel_velocity.publish(v_r)
+	left_wheel_veloity.publish(v_l*1)
+	right_wheel_velocity.publish(v_r*1)
 	rate.sleep()

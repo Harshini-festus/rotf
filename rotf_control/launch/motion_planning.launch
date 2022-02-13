@@ -4,13 +4,13 @@
     <!-- <node pkg="rotf_control" type="laser_data_pub.py" name="laser_data_pub.py" output="screen" /> -->
         <!--  ************** Global Parameters ***************  -->
     <param name="/use_sim_time" value="true"/>
-  	<node pkg="tf" type="static_transform_publisher" name="base_link_odom_broadcaster" args="0 0 0.1 0 0 0 map base_link 100"/>
+  	<!-- <node pkg="tf" type="static_transform_publisher" name="base_link_odom_broadcaster" args="0 0 0 0 0 0 map base_link 100"/> -->
 	
 
         <!--  ************** Navigation ***************  -->
-	<node pkg="move_base" type="move_base" respawn="true" name="move_base" output="screen">
+	<!-- <node pkg="move_base" type="move_base" respawn="true" name="move_base" output="screen">
 		<remap from="odom" to="odom"/>
-    <!-- <remap from="diff_bot/laser/scan" to="diff_bot/laser/scan"/> -->
+    <remap from="diff_bot/laser/scan" to="diff_bot/laser/scan"/>
 
     <rosparam file="$(find rotf_control)/config/costmap_common.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find rotf_control)/config/costmap_common.yaml" command="load" ns="local_costmap" />
@@ -29,25 +29,17 @@
 		<remap from="cmd_vel" to="cmd_vel"/>
 		<remap from="odom" to="odom"/>
 		<remap from="scan" to="diff_bot/laser/scan"/>
-	</node>
+	</node> -->
 
 
 	<!--  ****** Maps *****  -->
 	<node name="map_server" pkg="map_server" type="map_server" args="$(find rotf_control)/maps/mymap.yaml" output="screen">
                 <param name="frame_id" value="map"/>
 	</node>
-  <arg name="scan_topic" default="diff_bot/laser/scan" />
-	<node pkg="amcl" type="amcl" name="amcl" output="screen">
-		<rosparam file="$(find rotf_control)/config/amcl_params.yaml" command="load" />
-    <param name="initial_pose_x"            value="0"/>
-    <param name="initial_pose_y"            value="0"/>
-    <param name="initial_pose_a"            value="0"/>
-    <param name="tf_broadcast"            value="false"/>
-    <remap from="scan" to="diff_bot/laser/scan"/>
-	</node>
+  
 
 	  <!--  **************** Visualisation ****************  -->
-	  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rotf_control)/config/rviz_navigation.rviz"/>
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find rotf_control)/config/rviz_navigation.rviz"/>
 
 </launch>
 
@@ -67,7 +59,7 @@
   Localization
   <node pkg="amcl" type="amcl" name="amcl" output="screen">
     <remap from="scan" to="diff_bot/laser/scan"/>
-    <param name="odom_frame_id" value="odom"/>
+    <param name="odom_frame_id" value="base_link"/>
     <param name="odom_model_type" value="diff-corrected"/>
     <param name="base_frame_id" value="base_link"/>
     <param name="update_min_d" value="0.5"/>
